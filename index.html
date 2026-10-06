@@ -1,8 +1,418 @@
 <!DOCTYPE html>
-<html>
-<head><title>Jack Beetham</title></head>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jack Beetham | UX Engineering</title>
+<meta name="description" content="Jack Beetham, computer science and HCI student at Virginia Tech. Portfolio of UX design and engineering work.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Chakra+Petch:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --night: #101a2c;      /* page background */
+    --panel: #17243b;      /* raised panels */
+    --line: #2a3a57;       /* borders, dividers */
+    --text: #e6ecf5;       /* main text */
+    --muted: #9aa9c2;      /* secondary text */
+    --select: #ffb547;     /* the "selected" state, like a game menu cursor */
+    --info: #7cc9e6;       /* links and tags */
+    --display: "Chakra Petch", "Segoe UI", system-ui, sans-serif;
+    --body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+    --wrap: 68rem;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--night);
+    color: var(--text);
+    font-family: var(--body);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: var(--info); text-underline-offset: 3px; }
+  a:hover { color: var(--text); }
+  :focus-visible { outline: 2px solid var(--select); outline-offset: 3px; }
+
+  .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 1.5rem; }
+
+  h1, h2, h3 { font-family: var(--display); line-height: 1.15; margin: 0; }
+  h2 { font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 600; margin-bottom: 0.5rem; }
+  h3 { font-size: 1.375rem; font-weight: 600; }
+  p { margin: 0 0 1rem; max-width: 62ch; }
+
+  /* ---------- Title screen ---------- */
+  .title-screen {
+    min-height: 100vh;
+    display: grid;
+    align-items: center;
+    padding: 4rem 0;
+    background-image: radial-gradient(var(--line) 1px, transparent 1px);
+    background-size: 28px 28px;
+    border-bottom: 1px solid var(--line);
+  }
+  .title-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 3rem;
+    align-items: end;
+  }
+  .title-screen h1 {
+    font-size: clamp(3rem, 9vw, 6.5rem);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.25rem;
+  }
+  .intro { font-size: 1.25rem; color: var(--text); }
+  .status { color: var(--muted); }
+
+  .main-menu { list-style: none; margin: 0; padding: 0; }
+  .main-menu a {
+    position: relative;
+    display: block;
+    padding: 0.6rem 1rem 0.6rem 2.25rem;
+    font-family: var(--display);
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.15s, background-color 0.15s, padding-left 0.15s;
+  }
+  .main-menu a::before {
+    content: "";
+    position: absolute;
+    left: 0.9rem;
+    top: 50%;
+    width: 0; height: 0;
+    border-style: solid;
+    border-width: 7px 0 7px 10px;
+    border-color: transparent transparent transparent var(--select);
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+  .main-menu a:hover,
+  .main-menu a:focus-visible {
+    color: var(--select);
+    background: rgba(255, 181, 71, 0.08);
+    padding-left: 2.6rem;
+    outline: none;
+  }
+  .main-menu a:hover::before,
+  .main-menu a:focus-visible::before { opacity: 1; }
+  .menu-hint { font-size: 0.875rem; color: var(--muted); margin: 1rem 0 0 1rem; }
+
+  /* One orchestrated moment: menu options load in like a game boot */
+  @media (prefers-reduced-motion: no-preference) {
+    .main-menu li { opacity: 0; animation: boot 0.4s ease-out forwards; }
+    .main-menu li:nth-child(1) { animation-delay: 0.3s; }
+    .main-menu li:nth-child(2) { animation-delay: 0.4s; }
+    .main-menu li:nth-child(3) { animation-delay: 0.5s; }
+    .main-menu li:nth-child(4) { animation-delay: 0.6s; }
+    .main-menu li:nth-child(5) { animation-delay: 0.7s; }
+    @keyframes boot { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: none; } }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .main-menu a, .main-menu a::before { transition: none; }
+  }
+
+  /* ---------- Sections ---------- */
+  section.block { padding: 5rem 0; border-bottom: 1px solid var(--line); }
+  .section-intro { color: var(--muted); margin-bottom: 2.5rem; }
+
+  /* Featured projects: big notched panels */
+  .featured { display: grid; gap: 2rem; }
+  .project {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    background: var(--panel);
+    clip-path: polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 24px 100%, 0 calc(100% - 24px));
+    border-left: 3px solid transparent;
+    transition: border-color 0.15s;
+  }
+  .project:hover, .project:focus-within { border-left-color: var(--select); }
+  .shot {
+    min-height: 260px;
+    display: grid;
+    place-items: center;
+    color: var(--muted);
+    font-size: 0.9rem;
+    background: repeating-linear-gradient(135deg, #1c2b45 0 12px, #192740 12px 24px);
+  }
+  .shot img { width: 100%; height: 100%; object-fit: cover; }
+  .project-body { padding: 2rem; }
+  .project-body h3 { margin-bottom: 0.4rem; }
+  .role { color: var(--muted); font-size: 0.95rem; margin-bottom: 1rem; }
+  .tags { list-style: none; padding: 0; margin: 0 0 1.5rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .tags li {
+    font-size: 0.85rem;
+    color: var(--info);
+    border: 1px solid var(--line);
+    padding: 0.15rem 0.6rem;
+  }
+  .button {
+    display: inline-block;
+    font-family: var(--display);
+    font-weight: 600;
+    color: var(--night);
+    background: var(--select);
+    padding: 0.6rem 1.2rem;
+    text-decoration: none;
+  }
+  .button:hover { color: var(--night); background: #ffc871; }
+
+  /* Empty slot: a project in progress */
+  .slot {
+    border: 2px dashed var(--line);
+    padding: 2rem;
+    color: var(--muted);
+  }
+  .slot h3 { color: var(--text); margin-bottom: 0.4rem; }
+  .slot p { margin: 0; }
+
+  /* Other work: compact log-style rows */
+  .log { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+  .log li {
+    display: grid;
+    grid-template-columns: 1fr 2fr auto;
+    gap: 1.5rem;
+    padding: 1.4rem 0;
+    border-bottom: 1px solid var(--line);
+    align-items: start;
+  }
+  .log h3 { font-size: 1.15rem; }
+  .log .meta { color: var(--muted); font-size: 0.9rem; margin-top: 0.25rem; }
+  .log p { margin: 0; }
+  .log .link { white-space: nowrap; font-size: 0.95rem; }
+  .log .no-link { color: var(--muted); font-size: 0.9rem; white-space: nowrap; }
+
+  /* About */
+  .about-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 3rem; }
+  .entry { margin-bottom: 1.75rem; }
+  .entry h3 { font-size: 1.15rem; }
+  .entry .meta { color: var(--muted); font-size: 0.95rem; margin-bottom: 0.4rem; }
+  .entry p { margin: 0; }
+  .skills h3 { font-size: 1.05rem; color: var(--select); margin: 1.5rem 0 0.4rem; }
+  .skills h3:first-child { margin-top: 0; }
+  .skills p { color: var(--text); margin: 0; }
+  .subhead { font-size: 1.4rem; margin: 0 0 1.25rem; }
+
+  /* Contact */
+  .contact h2 { font-size: clamp(2rem, 5vw, 3rem); }
+  .contact-links { list-style: none; padding: 0; margin: 2rem 0 0; display: flex; flex-wrap: wrap; gap: 1rem 2rem; font-size: 1.1rem; }
+
+  footer { padding: 2rem 0 3rem; color: var(--muted); font-size: 0.9rem; }
+  footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+
+  /* ---------- Small screens ---------- */
+  @media (max-width: 800px) {
+    .title-grid, .about-grid, .project { grid-template-columns: 1fr; }
+    .shot { min-height: 200px; }
+    .log li { grid-template-columns: 1fr; gap: 0.5rem; }
+    .main-menu a { font-size: 1.3rem; }
+  }
+</style>
+</head>
 <body>
-  <h1>Jack Beetham</h1>
-  <p>CS + HCI @ Virginia Tech. Portfolio coming soon.</p>
+
+<!-- ================= TITLE SCREEN ================= -->
+<header class="title-screen" id="top">
+  <div class="wrap title-grid">
+    <div>
+      <h1>Jack Beetham</h1>
+      <p class="intro">Computer science student at Virginia Tech, minoring in human-computer interaction. I design interfaces, then build them.</p>
+      <p class="status">Graduating May 2027 and looking for UX engineering roles.</p>
+    </div>
+    <nav aria-label="Main menu">
+      <ul class="main-menu" id="main-menu">
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#other-work">Other work</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <!-- EDIT: upload your resume PDF to the repo with this exact filename -->
+        <li><a href="Jack_Beetham_Resume.pdf">Resume (PDF)</a></li>
+      </ul>
+      <p class="menu-hint">Use the arrow keys and Enter, or click.</p>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ================= FEATURED PROJECTS ================= -->
+<section class="block" id="projects">
+  <div class="wrap">
+    <h2>Projects</h2>
+    <p class="section-intro">Full write-ups of how I researched, designed, and built each one.</p>
+
+    <div class="featured">
+
+      <article class="project">
+        <div class="shot">
+          <!-- EDIT: replace this text with <img src="images/language-app.png" alt="Describe the screen"> -->
+          Screenshot goes here
+        </div>
+        <div class="project-body">
+          <h3>Language Based Relation App</h3>
+          <p class="role">UX research and design, team of 4</p>
+          <p>A social app concept for connecting students on campus. We ran interviews, campus surveys, and usability tests, then took the design from rough wireframes to an interactive Figma prototype.</p>
+          <ul class="tags">
+            <li>User interviews</li><li>Usability testing</li><li>Figma</li><li>Prototyping</li>
+          </ul>
+          <!-- EDIT: point this at your case study page once it exists -->
+          <a class="button" href="#">Read the case study</a>
+        </div>
+      </article>
+
+      <article class="project">
+        <div class="shot">
+          <!-- EDIT: a short gameplay GIF or screenshot of the VR menu works well here -->
+          Screenshot goes here
+        </div>
+        <div class="project-body">
+          <h3>VR Survival Crafter</h3>
+          <p class="role">Solo project, Unity</p>
+          <p>A survival crafting game for VR, built to explore how menus and interactions should work when your hands are the controller. I focused on VR menu design, spatial sound, and lighting.</p>
+          <ul class="tags">
+            <li>Unity</li><li>C#</li><li>VR interaction</li><li>Menu design</li>
+          </ul>
+          <a class="button" href="#">Read the case study</a>
+        </div>
+      </article>
+
+      <div class="slot">
+        <h3>Next project in progress</h3>
+        <p>Something new is being designed and built here. Check back soon.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= OTHER WORK ================= -->
+<section class="block" id="other-work">
+  <div class="wrap">
+    <h2>Other work</h2>
+    <p class="section-intro">Class and personal projects, summarized.</p>
+
+    <ul class="log">
+      <li>
+        <div>
+          <h3>Fitness data analysis</h3>
+          <div class="meta">Python, Pandas, scikit-learn</div>
+        </div>
+        <p>Analyzed my own fitness tracking data to find patterns in activity and how consistently I kept habits.</p>
+        <span class="no-link">No public link</span>
+      </li>
+      <li>
+        <div>
+          <!-- EDIT: replace with a real project from your Extended Reality class -->
+          <h3>Extended Reality coursework</h3>
+          <div class="meta">Virginia Tech</div>
+        </div>
+        <p>Add a one or two sentence summary of an XR class project here.</p>
+        <span class="no-link">No public link</span>
+      </li>
+      <li>
+        <div>
+          <!-- EDIT: replace with a real project, and swap the span for a link if you have one -->
+          <h3>Human-computer interaction coursework</h3>
+          <div class="meta">Virginia Tech</div>
+        </div>
+        <p>Add a one or two sentence summary of an HCI class project here.</p>
+        <span class="no-link">No public link</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section class="block" id="about">
+  <div class="wrap">
+    <h2>About</h2>
+    <p class="section-intro">I'm interested in the space where design and code meet, especially interfaces for games and VR. Outside of class I'm a TA for Virginia Tech's HCI course and an officer in Theta Tau, the professional engineering fraternity.</p>
+
+    <div class="about-grid">
+      <div>
+        <h3 class="subhead">Experience</h3>
+        <div class="entry">
+          <h3>Teaching Assistant, Human-Computer Interaction</h3>
+          <div class="meta">Virginia Tech, January 2026 to present</div>
+          <p>I lead design critiques for about 30 students a semester and review their usability studies and interaction design projects.</p>
+        </div>
+        <div class="entry">
+          <h3>Theta Tau, Psi Gamma Chapter</h3>
+          <div class="meta">Rush Chair, Publicity Chair, Scribe. January 2025 to present</div>
+          <p>I run recruitment events, manage the chapter's Instagram, and keep meeting records and archives.</p>
+        </div>
+        <div class="entry">
+          <h3>B.S. Computer Science, minor in Human-Computer Interaction</h3>
+          <div class="meta">Virginia Tech, expected May 2027</div>
+        </div>
+      </div>
+
+      <div class="skills">
+        <h3>Design</h3>
+        <p>Figma, wireframing, prototyping, usability testing</p>
+        <h3>Code</h3>
+        <!-- EDIT: add JavaScript here once you start using it -->
+        <p>Java, Python, C++, C#, C, HTML, CSS</p>
+        <h3>Tools</h3>
+        <p>Unity, Git, Bitbucket, Canva</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section class="block contact" id="contact">
+  <div class="wrap">
+    <h2>Let's talk</h2>
+    <p>I'm open to UX engineering roles starting in summer 2027. Email is the fastest way to reach me.</p>
+    <a class="button" href="mailto:jackbeetham@gmail.com">Email me</a>
+    <ul class="contact-links">
+      <li><a href="mailto:jackbeetham@gmail.com">jackbeetham@gmail.com</a></li>
+      <li><a href="https://www.linkedin.com/in/jackbeetham040910/">LinkedIn</a></li>
+      <li><a href="https://github.com/jackbeetham">GitHub</a></li>
+      <li><a href="Jack_Beetham_Resume.pdf">Resume</a></li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Designed and built by Jack Beetham</span>
+    <a href="#top">Back to the menu</a>
+  </div>
+</footer>
+
+<script>
+  // Arrow-key navigation for the title-screen menu, like a game's main menu.
+  const menuLinks = Array.from(document.querySelectorAll('#main-menu a'));
+  document.getElementById('main-menu').addEventListener('keydown', (e) => {
+    const i = menuLinks.indexOf(document.activeElement);
+    if (i === -1) return;
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      menuLinks[(i + 1) % menuLinks.length].focus();
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      menuLinks[(i - 1 + menuLinks.length) % menuLinks.length].focus();
+    }
+  });
+  // Pressing an arrow key anywhere on the title screen puts the cursor on the first option.
+  document.addEventListener('keydown', (e) => {
+    if ((e.key === 'ArrowDown' || e.key === 'ArrowUp') && document.activeElement === document.body && window.scrollY < 200) {
+      e.preventDefault();
+      menuLinks[0].focus();
+    }
+  });
+</script>
 </body>
 </html>
