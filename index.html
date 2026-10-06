@@ -8,6 +8,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Chakra+Petch:wght@500;600;700&display=swap" rel="stylesheet">
+<!-- Icon library for the LinkedIn, GitHub, and resume icons in the top bar -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <style>
   :root {
     --night: #101a2c;      /* page background */
@@ -23,7 +25,7 @@
   }
 
   * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; scroll-padding-top: 4.5rem; }
   body {
     margin: 0;
     background: var(--night);
@@ -44,9 +46,47 @@
   h3 { font-size: 1.375rem; font-weight: 600; }
   p { margin: 0 0 1rem; max-width: 62ch; }
 
+  /* ---------- Sticky top bar ---------- */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(16, 26, 44, 0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .topbar .wrap {
+    height: 3.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .topbar-name {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--text);
+    text-decoration: none;
+  }
+  .topbar-name:hover { color: var(--select); }
+  .quick-links { list-style: none; margin: 0; padding: 0; display: flex; gap: 0.25rem; }
+  .quick-links a {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.45rem 0.75rem;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.15s, background-color 0.15s;
+  }
+  .quick-links i { font-size: 1.2rem; }
+  .quick-links a:hover,
+  .quick-links a:focus-visible { color: var(--select); background: rgba(255, 181, 71, 0.08); }
+
   /* ---------- Title screen ---------- */
   .title-screen {
-    min-height: 100vh;
+    min-height: calc(100vh - 3.75rem);
     display: grid;
     align-items: center;
     padding: 4rem 0;
@@ -56,10 +96,33 @@
   }
   .title-grid {
     display: grid;
-    grid-template-columns: 1.3fr 1fr;
-    gap: 3rem;
-    align-items: end;
+    grid-template-columns: minmax(220px, 340px) 1fr;
+    gap: 3.5rem;
+    align-items: center;
   }
+
+  /* Portrait framed like a character-select card */
+  .portrait {
+    aspect-ratio: 4 / 5;
+    padding: 3px;
+    background: var(--select);
+    clip-path: polygon(0 0, calc(100% - 28px) 0, 100% 28px, 100% 100%, 28px 100%, 0 calc(100% - 28px));
+  }
+  .portrait-inner {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    padding: 1rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+    background: repeating-linear-gradient(135deg, #1c2b45 0 12px, #192740 12px 24px);
+    clip-path: polygon(0 0, calc(100% - 26px) 0, 100% 26px, 100% 100%, 26px 100%, 0 calc(100% - 26px));
+  }
+  .portrait-inner img { width: 100%; height: 100%; object-fit: cover; }
+  .portrait-inner:has(img) { padding: 0; }
+  .title-text .main-menu { margin-top: 1.5rem; margin-left: -1rem; }
   .title-screen h1 {
     font-size: clamp(3rem, 9vw, 6.5rem);
     font-weight: 700;
@@ -214,19 +277,44 @@
     .shot { min-height: 200px; }
     .log li { grid-template-columns: 1fr; gap: 0.5rem; }
     .main-menu a { font-size: 1.3rem; }
+    .portrait { max-width: 260px; }
+    .title-screen { padding-top: 2.5rem; }
+  }
+  @media (max-width: 560px) {
+    .quick-links .label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+    .quick-links a { padding: 0.5rem 0.65rem; }
   }
 </style>
 </head>
 <body>
 
+<!-- ================= STICKY TOP BAR ================= -->
+<div class="topbar">
+  <div class="wrap">
+    <a class="topbar-name" href="#top">Jack Beetham</a>
+    <ul class="quick-links">
+      <li><a href="https://www.linkedin.com/in/jackbeetham040910/" aria-label="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i><span class="label">LinkedIn</span></a></li>
+      <li><a href="https://github.com/jackbeetham" aria-label="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+      <li><a href="Jack_Beetham_Resume.pdf" aria-label="Resume (PDF)"><i class="fa-solid fa-file-lines" aria-hidden="true"></i><span class="label">Resume</span></a></li>
+    </ul>
+  </div>
+</div>
+
 <!-- ================= TITLE SCREEN ================= -->
 <header class="title-screen" id="top">
   <div class="wrap title-grid">
-    <div>
+    <div class="portrait">
+      <div class="portrait-inner">
+        <!-- EDIT: upload your photo to an "images" folder in the repo, then delete
+             the text below and use:
+             <img src="images/jack.jpg" alt="Jack Beetham"> -->
+        Your photo goes here
+      </div>
+    </div>
+    <div class="title-text">
       <h1>Jack Beetham</h1>
       <p class="intro">Computer science student at Virginia Tech, minoring in human-computer interaction. I design interfaces, then build them.</p>
       <p class="status">Graduating May 2027 and looking for UX engineering roles.</p>
-    </div>
     <nav aria-label="Main menu">
       <ul class="main-menu" id="main-menu">
         <li><a href="#projects">Projects</a></li>
@@ -238,6 +326,7 @@
       </ul>
       <p class="menu-hint">Use the arrow keys and Enter, or click.</p>
     </nav>
+    </div>
   </div>
 </header>
 
@@ -334,7 +423,7 @@
 <section class="block" id="about">
   <div class="wrap">
     <h2>About</h2>
-    <p class="section-intro">I'm interested in the space where design and code meet, especially interfaces for games and VR. Outside of class I'm a TA for Virginia Tech's HCI course and an officer in Theta Tau, the professional engineering fraternity.</p>
+    <p class="section-intro">I'm interested in the space where design and code meet, especially interfaces for games and VR. Outside of class I'm a TA for Virginia Tech's HCI course, where I help students critique and improve their design work.</p>
 
     <div class="about-grid">
       <div>
@@ -343,11 +432,6 @@
           <h3>Teaching Assistant, Human-Computer Interaction</h3>
           <div class="meta">Virginia Tech, January 2026 to present</div>
           <p>I lead design critiques for about 30 students a semester and review their usability studies and interaction design projects.</p>
-        </div>
-        <div class="entry">
-          <h3>Theta Tau, Psi Gamma Chapter</h3>
-          <div class="meta">Rush Chair, Publicity Chair, Scribe. January 2025 to present</div>
-          <p>I run recruitment events, manage the chapter's Instagram, and keep meeting records and archives.</p>
         </div>
         <div class="entry">
           <h3>B.S. Computer Science, minor in Human-Computer Interaction</h3>
