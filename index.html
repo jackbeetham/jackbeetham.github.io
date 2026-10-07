@@ -254,16 +254,12 @@
   .log .no-link { color: var(--muted); font-size: 0.9rem; white-space: nowrap; }
 
   /* About */
-  .about-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 3.5rem; margin-top: 1.5rem; }
+  .about-grid { display: grid; gap: 3rem; margin-top: 1.5rem; }
   .about-text p { font-size: 1.1rem; margin-bottom: 1.25rem; }
-  .skills {
-    background: var(--panel);
-    padding: 1.75rem;
-    align-self: start;
-    clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
-  }
-  .skills h3 { font-size: 1.05rem; color: var(--select); margin: 1.4rem 0 0.6rem; }
-  .skills h3:first-child { margin-top: 0; }
+  .skills { border-top: 1px solid var(--line); padding-top: 2.5rem; }
+  .skills-title { font-size: 1.4rem; margin-bottom: 1.5rem; }
+  .skill-groups { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+  .skills h4 { font-family: var(--display); font-size: 1.05rem; font-weight: 600; color: var(--select); margin: 0 0 0.75rem; }
   .skills .tags { margin: 0; }
   .skills .tags li { color: var(--text); }
 
@@ -276,7 +272,8 @@
 
   /* ---------- Small screens ---------- */
   @media (max-width: 800px) {
-    .title-grid, .about-grid, .project { grid-template-columns: 1fr; }
+    .title-grid, .project { grid-template-columns: 1fr; }
+    .skill-groups { grid-template-columns: repeat(2, 1fr); }
     .shot { min-height: 200px; }
     .log li { grid-template-columns: 1fr; gap: 0.5rem; }
     .main-menu a { font-size: 1.3rem; }
@@ -317,9 +314,9 @@
       <p class="status">Graduating May 2027 and looking for UX engineering roles.</p>
     <nav aria-label="Main menu">
       <ul class="main-menu" id="main-menu">
+        <li><a href="#about">About</a></li>
         <li><a href="#projects">Projects</a></li>
         <li><a href="#other-work">Other work</a></li>
-        <li><a href="#about">About</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
       <p class="menu-hint">Use the arrow keys and Enter, or click.</p>
@@ -330,11 +327,59 @@
 
 <main>
 
+<!-- ================= ABOUT ================= -->
+<section class="block" id="about">
+  <div class="wrap">
+    <h2>About</h2>
+
+    <div class="about-grid">
+      <div class="about-text">
+      </p>I am a Computer Science student at Virginia Tech, minoring in Human-Computer Interaction, with a focus on user interaction and computer graphics.</p>
+      </p>I am comfortable with C++, C#, Java, and JavaScript, and I ground my work in user-centered design principles and usability testing.</p>
+      </p>In Unity, I have built traditional and virtual reality experiences that explore different aspects of spatial sound, raytracing, dynamic UI elements, and more.</p>
+        <!-- EDIT: add a sentence or two that's just you, like games you love,
+             hobbies, or what you're building right now. -->
+        <p>Right now I'm focused on building new projects that bring design and code together, especially for games and VR.</p>
+      </div>
+
+      <div class="skills">
+        <h3 class="skills-title">Skills</h3>
+        <div class="skill-groups">
+          <div>
+            <h4>Code</h4>
+            <!-- EDIT: add JavaScript here once you start using it -->
+            <ul class="tags">
+              <li>Java</li><li>Python</li><li>C++</li><li>C#</li><li>C</li><li>HTML</li><li>CSS</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Games and XR</h4>
+            <ul class="tags">
+              <li>Unity</li><li>VR interaction</li><li>VR menu design</li><li>Spatial audio</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Design</h4>
+            <ul class="tags">
+              <li>Figma</li><li>Wireframing</li><li>Prototyping</li><li>Interaction design</li><li>Canva</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Data and tools</h4>
+            <ul class="tags">
+              <li>Pandas</li><li>scikit-learn</li><li>Git</li><li>Bitbucket</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ================= FEATURED PROJECTS ================= -->
 <section class="block" id="projects">
   <div class="wrap">
     <h2>Projects</h2>
-    <p class="section-intro">Full write-ups of how I researched, designed, and built each one.</p>
 
     <div class="featured">
 
@@ -351,7 +396,7 @@
             <li>User interviews</li><li>Usability testing</li><li>Figma</li><li>Prototyping</li>
           </ul>
           <!-- EDIT: point this at your case study page once it exists -->
-          <a class="button" href="#">Read the case study</a>
+          <a class="button" href="#">Learn more</a>
         </div>
       </article>
 
@@ -367,7 +412,7 @@
           <ul class="tags">
             <li>Unity</li><li>C#</li><li>VR interaction</li><li>Menu design</li>
           </ul>
-          <a class="button" href="#">Read the case study</a>
+          <a class="button" href="#">Learn more</a>
         </div>
       </article>
 
@@ -384,7 +429,7 @@
 <section class="block" id="other-work">
   <div class="wrap">
     <h2>Other work</h2>
-    <p class="section-intro">Class and personal projects, summarized.</p>
+    <p class="section-intro">Summarized descriptions of unpublished projects.</p>
 
     <ul class="log">
       <li>
@@ -417,54 +462,11 @@
   </div>
 </section>
 
-<!-- ================= ABOUT ================= -->
-<section class="block" id="about">
-  <div class="wrap">
-    <h2>About</h2>
-
-    <div class="about-grid">
-      <div class="about-text">
-        <p>I've always paid attention to the parts of a game most people never think about: the menus, the inventory screens, the prompts that ask "are you sure?" When they work, they disappear. When they don't, they're the first thing players complain about. That's what pulled me toward user experience.</p>
-        <p>I study computer science with a minor in human-computer interaction, which lets me work on both sides of an interface. I like starting with people, through interviews, surveys, and watching someone try a task for the first time, and then turning what I learn into designs I can build and test myself.</p>
-        <p>As a teaching assistant for Virginia Tech's HCI course, I lead design critiques and review students' usability studies every week. Giving that feedback has made me much sharper about spotting what's confusing in my own work.</p>
-        <!-- EDIT: add a sentence or two that's just you, like games you love,
-             hobbies, or what you're building right now. -->
-        <p>Right now I'm focused on building new projects that bring design and code together, especially for games and VR.</p>
-      </div>
-
-      <div class="skills">
-        <h3>Research</h3>
-        <ul class="tags">
-          <li>User interviews</li><li>Surveys</li><li>Usability testing</li><li>Heuristic evaluation</li><li>Design critique</li>
-        </ul>
-        <h3>Design</h3>
-        <ul class="tags">
-          <li>Figma</li><li>Wireframing</li><li>Prototyping</li><li>Interaction design</li><li>Canva</li>
-        </ul>
-        <h3>Games and XR</h3>
-        <ul class="tags">
-          <li>Unity</li><li>VR interaction</li><li>VR menu design</li><li>Spatial audio</li>
-        </ul>
-        <h3>Code</h3>
-        <!-- EDIT: add JavaScript here once you start using it -->
-        <ul class="tags">
-          <li>Java</li><li>Python</li><li>C++</li><li>C#</li><li>C</li><li>HTML</li><li>CSS</li>
-        </ul>
-        <h3>Data and tools</h3>
-        <ul class="tags">
-          <li>Pandas</li><li>scikit-learn</li><li>Git</li><li>Bitbucket</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ================= CONTACT ================= -->
 <section class="block contact" id="contact">
   <div class="wrap">
     <h2>Let's talk</h2>
     <p>I'm open to UX engineering roles starting in summer 2027. Please reach out to me through email or LinkedIn.</p>
-    <a class="button" href="mailto:jackbeetham@gmail.com">Email me</a>
     <ul class="contact-links">
       <li><a href="mailto:jackbeetham@gmail.com">jackbeetham@gmail.com</a></li>
       <li><a href="https://www.linkedin.com/in/jackbeetham040910/">LinkedIn</a></li>
