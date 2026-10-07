@@ -254,15 +254,18 @@
   .log .no-link { color: var(--muted); font-size: 0.9rem; white-space: nowrap; }
 
   /* About */
-  .about-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 3rem; }
-  .entry { margin-bottom: 1.75rem; }
-  .entry h3 { font-size: 1.15rem; }
-  .entry .meta { color: var(--muted); font-size: 0.95rem; margin-bottom: 0.4rem; }
-  .entry p { margin: 0; }
-  .skills h3 { font-size: 1.05rem; color: var(--select); margin: 1.5rem 0 0.4rem; }
+  .about-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 3.5rem; margin-top: 1.5rem; }
+  .about-text p { font-size: 1.1rem; margin-bottom: 1.25rem; }
+  .skills {
+    background: var(--panel);
+    padding: 1.75rem;
+    align-self: start;
+    clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+  }
+  .skills h3 { font-size: 1.05rem; color: var(--select); margin: 1.4rem 0 0.6rem; }
   .skills h3:first-child { margin-top: 0; }
-  .skills p { color: var(--text); margin: 0; }
-  .subhead { font-size: 1.4rem; margin: 0 0 1.25rem; }
+  .skills .tags { margin: 0; }
+  .skills .tags li { color: var(--text); }
 
   /* Contact */
   .contact h2 { font-size: clamp(2rem, 5vw, 3rem); }
@@ -318,8 +321,6 @@
         <li><a href="#other-work">Other work</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#contact">Contact</a></li>
-        <!-- EDIT: upload your resume PDF to the repo with this exact filename -->
-        <li><a href="Jack_Beetham_Resume.pdf">Resume (PDF)</a></li>
       </ul>
       <p class="menu-hint">Use the arrow keys and Enter, or click.</p>
     </nav>
@@ -420,30 +421,39 @@
 <section class="block" id="about">
   <div class="wrap">
     <h2>About</h2>
-    <p class="section-intro">I'm interested in the space where design and code meet, especially interfaces for games and VR. Outside of class I'm a TA for Virginia Tech's HCI course, where I help students critique and improve their design work.</p>
 
     <div class="about-grid">
-      <div>
-        <h3 class="subhead">Experience</h3>
-        <div class="entry">
-          <h3>Teaching Assistant, Human-Computer Interaction</h3>
-          <div class="meta">Virginia Tech, January 2026 to present</div>
-          <p>I lead design critiques for about 30 students a semester and review their usability studies and interaction design projects.</p>
-        </div>
-        <div class="entry">
-          <h3>B.S. Computer Science, minor in Human-Computer Interaction</h3>
-          <div class="meta">Virginia Tech, expected May 2027</div>
-        </div>
+      <div class="about-text">
+        <p>I've always paid attention to the parts of a game most people never think about: the menus, the inventory screens, the prompts that ask "are you sure?" When they work, they disappear. When they don't, they're the first thing players complain about. That's what pulled me toward user experience.</p>
+        <p>I study computer science with a minor in human-computer interaction, which lets me work on both sides of an interface. I like starting with people, through interviews, surveys, and watching someone try a task for the first time, and then turning what I learn into designs I can build and test myself.</p>
+        <p>As a teaching assistant for Virginia Tech's HCI course, I lead design critiques and review students' usability studies every week. Giving that feedback has made me much sharper about spotting what's confusing in my own work.</p>
+        <!-- EDIT: add a sentence or two that's just you, like games you love,
+             hobbies, or what you're building right now. -->
+        <p>Right now I'm focused on building new projects that bring design and code together, especially for games and VR.</p>
       </div>
 
       <div class="skills">
+        <h3>Research</h3>
+        <ul class="tags">
+          <li>User interviews</li><li>Surveys</li><li>Usability testing</li><li>Heuristic evaluation</li><li>Design critique</li>
+        </ul>
         <h3>Design</h3>
-        <p>Figma, wireframing, prototyping, usability testing</p>
+        <ul class="tags">
+          <li>Figma</li><li>Wireframing</li><li>Prototyping</li><li>Interaction design</li><li>Canva</li>
+        </ul>
+        <h3>Games and XR</h3>
+        <ul class="tags">
+          <li>Unity</li><li>VR interaction</li><li>VR menu design</li><li>Spatial audio</li>
+        </ul>
         <h3>Code</h3>
         <!-- EDIT: add JavaScript here once you start using it -->
-        <p>Java, Python, C++, C#, C, HTML, CSS</p>
-        <h3>Tools</h3>
-        <p>Unity, Git, Bitbucket, Canva</p>
+        <ul class="tags">
+          <li>Java</li><li>Python</li><li>C++</li><li>C#</li><li>C</li><li>HTML</li><li>CSS</li>
+        </ul>
+        <h3>Data and tools</h3>
+        <ul class="tags">
+          <li>Pandas</li><li>scikit-learn</li><li>Git</li><li>Bitbucket</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -469,7 +479,6 @@
 <footer>
   <div class="wrap">
     <span>Designed and built by Jack Beetham</span>
-    <a href="#top">Back to the menu</a>
   </div>
 </footer>
 
