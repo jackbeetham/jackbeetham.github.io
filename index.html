@@ -253,6 +253,21 @@
   .log .link { white-space: nowrap; font-size: 0.95rem; }
   .log .no-link { color: var(--muted); font-size: 0.9rem; white-space: nowrap; }
 
+  /* Other work rows with a thumbnail image */
+  .log li.with-thumb { grid-template-columns: 200px 1fr 2fr auto; }
+  .thumb {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+    color: var(--muted);
+    font-size: 0.8rem;
+    text-align: center;
+    background: repeating-linear-gradient(135deg, #1c2b45 0 10px, #192740 10px 20px);
+    border: 1px solid var(--line);
+  }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; }
+
   /* About */
   .about-grid { display: grid; gap: 3rem; margin-top: 1.5rem; }
   .about-text p { font-size: 1.1rem; margin-bottom: 1.25rem; }
@@ -275,7 +290,8 @@
     .title-grid, .project { grid-template-columns: 1fr; }
     .skill-groups { grid-template-columns: repeat(2, 1fr); }
     .shot { min-height: 200px; }
-    .log li { grid-template-columns: 1fr; gap: 0.5rem; }
+    .log li, .log li.with-thumb { grid-template-columns: 1fr; gap: 0.5rem; }
+    .thumb { max-width: 320px; margin-bottom: 0.5rem; }
     .main-menu a { font-size: 1.3rem; }
     .portrait { max-width: 260px; }
     .title-screen { padding-top: 2.5rem; }
@@ -334,10 +350,10 @@
 
     <div class="about-grid">
       <div class="about-text">
-      </p>I am a Computer Science student at Virginia Tech, minoring in Human-Computer Interaction, with a focus on user interaction and computer graphics.</p>
-      </p>I am comfortable with C++, C#, Java, and JavaScript, and I ground my work in user-centered design principles and usability testing.</p>
-      </p>In Unity, I have built traditional and virtual reality experiences that explore different aspects of spatial sound, raytracing, dynamic UI elements, and more.</p>
-        </p>Right now I'm focused on building new projects that bring design and code together, especially for games.</p>
+        <p>I am a Computer Science student at Virginia Tech, minoring in Human-Computer Interaction, with a focus on user interaction and computer graphics.</p>
+        <p>I am comfortable with C++, C#, Java, and JavaScript, and I ground my work in user-centered design principles and usability testing.</p>
+        <p>In Unity, I have built traditional and virtual reality experiences that explore different aspects of spatial sound, raytracing, dynamic UI elements, and more.</p>
+        <p>Right now I'm focused on building new projects that bring design and code together, especially for games.</p>
       </div>
 
       <div class="skills">
@@ -381,39 +397,6 @@
 
     <div class="featured">
 
-      <article class="project">
-        <div class="shot">
-          <!-- EDIT: a short gameplay GIF or screenshot of the VR menu works well here -->
-          Screenshot goes here
-        </div>
-        <div class="project-body">
-          <h3>VR Survival Crafter</h3>
-          <p class="role">Solo project, Unity</p>
-          <p>A survival crafting game for VR, built to explore how menus and interactions should work when your hands are the controller. I focused on VR menu design, spatial sound, and lighting.</p>
-          <ul class="tags">
-            <li>Unity</li><li>C#</li><li>VR interaction</li><li>Menu design</li>
-          </ul>
-          <a class="button" href="#">Learn more</a>
-        </div>
-      </article>
-
-      <article class="project">
-        <div class="shot">
-          <!-- EDIT: replace this text with <img src="images/language-app.png" alt="Describe the screen"> -->
-          Screenshot goes here
-        </div>
-        <div class="project-body">
-          <h3>Language Based Relation App</h3>
-          <p class="role">UX research and design, team of 4</p>
-          <p>A social app concept for connecting students on campus. We ran interviews, campus surveys, and usability tests, then took the design from rough wireframes to an interactive Figma prototype.</p>
-          <ul class="tags">
-            <li>User interviews</li><li>Usability testing</li><li>Figma</li><li>Prototyping</li>
-          </ul>
-          <!-- EDIT: point this at your case study page once it exists -->
-          <a class="button" href="#">Learn more</a>
-        </div>
-      </article>
-      
       <div class="slot">
         <h3>Next project in progress</h3>
         <p>Something new is being designed and built here. Check back soon.</p>
@@ -430,6 +413,32 @@
     <p class="section-intro">Summarized descriptions of unpublished projects.</p>
 
     <ul class="log">
+      <li class="with-thumb">
+        <div class="thumb">
+          <!-- EDIT: upload an image to the images folder, delete the text below, and use:
+               <img src="images/vr-crafter.jpg" alt="Describe what the image shows"> -->
+          Image goes here
+        </div>
+        <div>
+          <h3>VR Survival Crafter</h3>
+          <div class="meta">Unity, C#, VR</div>
+        </div>
+        <p>A survival crafting game for VR, built to explore how menus and interactions should work when your hands are the controller. I focused on VR menu design, spatial sound, and lighting.</p>
+        <span class="no-link">No public link</span>
+      </li>
+      <li class="with-thumb">
+        <div class="thumb">
+          <!-- EDIT: upload an image to the images folder, delete the text below, and use:
+               <img src="images/language-app.png" alt="Describe what the image shows"> -->
+          Image goes here
+        </div>
+        <div>
+          <h3>Language Based Relation App</h3>
+          <div class="meta">Figma, team of 4</div>
+        </div>
+        <p>A social app concept for connecting students on campus. We ran interviews, campus surveys, and usability tests, then took the design from rough wireframes to an interactive Figma prototype.</p>
+        <span class="no-link">No public link</span>
+      </li>
       <li>
         <div>
           <h3>Fitness data analysis</h3>
